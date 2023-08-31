@@ -37,15 +37,39 @@
         <div id="recommend">
           <section>
             <h3> Recommanderez-vous ce produit à d'autres clients ?</h3>
+            
+            <!-- Reference: https://www.w3schools.com/html/html_form_input_types.asp-->
+            <input id="recommend-yes" type="radio" name="recommend-choice" value="yes">
+            <label for="recommend-yes">Oui</label>
+
+            <input id="recommend-no" type="radio" name="recommend-choice" value="no">
+            <label for="recommend-no">Non</label>
+
           </section>
         </div>
         <div id="rating">
           <h3>Donnez une note entre 1 et 5 :</h3>
+          <select id="rating-number" required>
+            <option value="">Choisir</option>
+            <!-- Better Alternative: <option value="" selected disabled hidden>Choisir</option> -->
+            
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            
+          </select>
         </div>
       </div>
       <div id="comment">
         <h3>Ajoutez un commentaire!</h3>
+        <legend>Titre:</legend>
+        <input id="comment-title" type="text" placeholder="Que faut-il savoir sur le produit ?" required>
+        <legend>Message:</legend>
+        <textarea id="comment-description" rows="2" required minlength="10"></textarea>
       </div>
+      <input type="submit">
     </form>
   </main>
 </body>
