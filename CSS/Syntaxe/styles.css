@@ -11,11 +11,44 @@ form {
     flex-direction: column;
     max-width: 200px;
     padding: 10px;
+
+    /* AJOUTS */
+    border: 2px solid black;
+    gap: 1rem;
+}
+
+.rounded-border {
+    border-radius: 5pt;
 }
 
 input {
     box-sizing: border-box;
+    width: 100%; /* Prendre toute la largeur */
+    background-color: #ffffe0;
 }
+
+/* Le bouton `Connexion` devrait avoir un texte plus large que le reste du formulaire avec une couleure blanche sur un fond vert (valeurs RGB exactes laissées à votre choix). */
+form > input {
+    background-color: rgb(98, 165, 32, 1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all ease-in 0.3s;
+    cursor: pointer;
+}
+
+form > input:hover {
+    font-size: 1.5rem;
+    background-color: rgb(98, 165, 32, 0.5);
+}
+
+form p {
+    text-align: center;
+}
+
+#login-mode {
+    width: 100%; /* Prendre toute la largeur */
+}
+
 
 /* Sélecteurs multiples pour l'élément <input> */
 
@@ -24,4 +57,33 @@ input {
     background-color: blue;
 }
 
+/*
+- En utilisant un sélecteur par attribut 
+input[value=Connexion] {
+    background-color: blue;
+}
+
+- En utilisant des sélecteurs hiérarchiques 
+form > input {
+    background-color: red;
+}
+
+- En utilisant un sélecteur de voisins
+div + input {
+    background-color: yellow;
+}
+
+- En utilisant la pseudo classe `:not()`
+form:not(:first-child) > input {
+    background-color: pink;
+}
+
+*/
+
 /* Exercice supplémentaire */
+
+li:hover::marker {
+    content: '★';
+    color: orange;
+    font-size: 2rem;
+}
