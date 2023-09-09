@@ -11,6 +11,8 @@
 
 body {
     font-size: large;
+    background-color: var(--background-color);
+    color: var(--text-color)
 }
 
 #main-container {
@@ -18,8 +20,13 @@ body {
 }
 
 #top-bar {
-    border: 1px solid;
+    border: 1px solid var(--border-color);
     padding: 5px;
+    margin-bottom: var(--gap-size);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #top-bar-title {
@@ -29,16 +36,21 @@ body {
 
 #main-area {
     gap: var(--gap-size);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* Pour l'exercice 2 */
 }
 
 .employee-card {
-    border: 2px solid;
+    border: 2px solid var(--border-color);
     border-radius: 10px;
+    background-color: var(--base-color);
+    display: flex;
+    position: relative; /* REQUIS pour que le bouton en position absolue se place dans la carte */
 }
 
 .employee-card:hover {
     /* à remplacer */
-    background-color: green;
+    background-color: var(--highlight-color);
 }
 
 .employee-card:hover button {
@@ -51,10 +63,19 @@ body {
     height: 40px;
     padding: 0;
     border-radius: 50%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .employee-info {
     margin: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .employee-card>img {
@@ -67,6 +88,12 @@ body {
     padding: 5px;
     text-align: center;
     box-sizing: border-box;
+    background-color: var(--employee-color);
+    width: 100%;
+}
+
+.intern {
+    background-color: var(--intern-color);
 }
 
 .bold {
