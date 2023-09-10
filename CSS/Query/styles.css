@@ -83,13 +83,72 @@ li a {
     text-decoration: none;
 }
 
+@media screen and (max-width: 800px) {
+    #container {
+        grid-template-columns: 1fr; /* La solution était beaucoup plus haut niveau que ce je croyais... */
+        grid-template-areas: "top-bar" "aside" "main-content";
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+    }
+    .notecard {
+        border: none;
+    }
+    #page-nav {
+        position: relative;
+        align-self: flex-end;
+        text-align: right;
+        top: 0;
+        border: none;
+    }
+}
+
+@media screen and (min-width: 450px) and (max-width: 800px) {
+    #container {
+        background-color: #15ec15;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main-content";
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .table-container {
+        margin: 0;
+    }
+}
 
 @media print {
 
+    #container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main-content";
+        max-width: 100%;
+    }
+
+    #top-bar {
+        display: none; /* Pas juste mettre visibility hidden */
+    }
+
+    #page-nav {
+        display: none;
+    }
+
+    #types_de_media, #caracteristiques_media_media_features {
+        page-break-before: always;
+    }
+
+    /* Pour les td et th, on priorise la spécificité en ajoutant leur parent. (Alternative pas recommandée: !important; c'est la raison pour laquelle le .notepad peut se faire ssi on l'enlève d'en-haut...)*/
     .notecard,
-    td,
-    th {
+    table td,
+    table th {
         border-color: none;
         border: none;
     }
 }
+
