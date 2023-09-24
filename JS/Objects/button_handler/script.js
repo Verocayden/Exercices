@@ -8,7 +8,15 @@ const ButtonHandler = {
         display.textContent = `Valeur aléatoire : ${randomValue}`;
     },
     addHandler: function (element) {
-        element.addEventListener("click", this.showValue);
+        // Error: Uncaught TypeError: this.getRandom is not a function at HTMLButtonElement.showValue (script.js:6:34)
+        // Wrong object is used as "this"!!
+        // element.addEventListener("click", this.showValue);
+
+        // Solution 1: Arrow function (this is determined based on creation context)
+        // element.addEventListener("click", () => { this.showValue() });
+
+        // Solution 2: Use bind()
+        element.addEventListener("click", this.showValue.bind(this));
     },
 };
 
