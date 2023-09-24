@@ -6,7 +6,10 @@ const books = [
     { id: 5, price: 10.50, available: false },
 ];
 
-const sorted = [];
+// Fonction sort avec le critère associé (!!)
+const sorted = [...books].sort((bookA, bookB) => {
+    return bookB.available - bookA.available || bookA.price - bookB.price;
+});
 
 console.log(sorted);
 /* Valeur attendue :
