@@ -20,8 +20,18 @@
  * 
  *  info() retourne l'information de la voiture dans le format suivant : "make model : year"
  */
+
 function CarFactory(make) {
-    return { };
+    let count = 0; // Scope: Function
+    return { 
+        carsBuilt: () => count,
+
+        // !!
+        carBuilder: (model) => (year) => {
+            count += 1;
+            return {make, model, year, info: () => `${make} ${model} : ${year}`};
+        }
+    };
 }
 
 /// Exemples d'utilisation
@@ -56,3 +66,9 @@ console.log(newFordFocus.year); // 2023
 console.log(newFordFocus.info()); // Ford Focus : 2019
 /// Question : pourquoi est-ce que le nom est-il toujours Ford Focus : 2019
 /// Comment peut-on règler ce problème ?
+
+// Le paramètre dans info() n'a pas été mis à jour, donc l'information est désuète pour info().
+// Il faut donc redéfinir info()
+
+newFordFocus.info = function() { return `${this.make} ${this.model} : ${this.year}` };
+console.log(newFordFocus.info()); // Ford Focus: 2023 // CORRIGÉ
