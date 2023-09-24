@@ -1,4 +1,14 @@
 const arr = [1, 2, 3];
+
+// My initial solution was this, but without the Array.prototype before .myMap (I used testArray.myMap, which wasn't optimal).
+Array.prototype.myMap = function(transformer) {
+  let newArray = [];
+  for (let i = 0; i < this.length; i++) {
+    newArray[i] = transformer(this[i], i, this);
+  }
+  return newArray;
+}
+
 let res = arr.map((val, index, arr) => {
   return { value: val, index: index, array: arr };
 });
