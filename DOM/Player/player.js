@@ -3,9 +3,13 @@ const songs = document.getElementsByClassName('song-item');
 let selectedSong = 0;
 
 // TODO : récupérer le lien vers l'audio
-audio.src = songs[selectedSong];
+audio.src = songs[selectedSong].dataset.url;
 
 const timeline = document.getElementById('timeline');
+const playButton = document.getElementById('play');
+const nextButton = document.getElementById('next');
+const previousButton = document.getElementById('previous');
+const nowPlaying = document.getElementById('now-playing');
 
 /**
  * Associe une fonction à une chaîne de caractères.
@@ -30,14 +34,36 @@ const shortcutManager = new Map();
 function bindEvents() {
 
     // TODO : ajouter des gestionnaires pour les boutons de contrôle
+    playButton.addEventListener("click", () => {
+        play();
+    })
 
-    /// TODO : ajouter un gestionnaire à l'élément audio pour le déroulement d'une chanson
-    audio.addEventListener('todo', () => { });
+    previousButton.addEventListener("click", () => {
+        playNext();
+    })
+
+    nextButton.addEventListener("click", () => {
+        playNext();
+    })
+
+    /// *** TODO : ajouter un gestionnaire à l'élément audio pour le déroulement d'une chanson
+    audio.addEventListener('timeupdate', () => { 
+        const position = (100 * audio.currentTime) / audio.duration;
+        timeline.value = position;
+    });
 
     /// TODO : ajouter un gestionnaire à l'élément audio pour la fin d'une chanson
-    audio.addEventListener('todo', () => { });
+    audio.addEventListener('ended', () => { 
+        playNext();
+    });
 
-    /// TODO : ajouter un gestionnaire sur chaque élément song-item qui joue la chanson de l'item
+    /// *** TODO : ajouter un gestionnaire sur chaque élément song-item qui joue la chanson de l'item
+    Array.from(songs).forEach((element, index) => {
+        element.addEventListener("click", () => {
+            selectedSong = index;
+            play(element.dataset.url);
+        })
+    })
 
     /// Gestionnaire de contrôle du moment de la chanson en fonction de la barre de progrès
     timeline.addEventListener("input", () => {
@@ -56,6 +82,18 @@ function bindEvents() {
  *  - L            : avancer de 5 secondes
  */
 function bindShortcuts() {
+    shortcutManager.set(" ", () => play());
+    shortcutManager.set("N", () => playNext());
+    shortcutManager.set("P", () => playPrevious());
+    shortcutManager.set('J', () => audioSeek(parseInt(timeline.value) - 5)); //**
+    shortcutManager.set('L', () => audioSeek(parseInt(timeline.value) + 5)); //**
+    document.addEventListener('keydown', (event) => {
+        const key = event.key.toUpperCase();
+        if (shortcutManager.has(key)) {
+            const command = shortcutManager.get(key);
+            command();
+        }
+    });
 }
 
 bindEvents();
@@ -88,7 +126,7 @@ function play(src) {
     playButton.classList.toggle('fa-play', audio.paused);
 
     // TODO : mettre à jour l'affichage de l'élément 'now-playing' à partir du nom de la chanson
-
+    nowPlaying.textContent = `On joue: ${songs[selectedSong].dataset.name}`;
 }
 
 /**
